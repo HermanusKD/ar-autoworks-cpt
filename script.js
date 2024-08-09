@@ -44,3 +44,41 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', checkFooterVisibility);
     checkFooterVisibility(); // Initial check
 });
+const reviewsContainer = document.querySelector('.reviews-container');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const reviewItems = document.querySelectorAll('.review-item');
+
+let currentIndex = 0;
+
+function showReview(index) {
+    reviewsContainer.style.transform = `translateX(-${index * 100}%)`;
+}
+
+prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+        currentIndex--;
+    } else {
+        currentIndex = reviewItems.length - 1;
+    }
+    showReview(currentIndex);
+});
+
+nextBtn.addEventListener('click', () => {
+    if (currentIndex < reviewItems.length - 1) {
+        currentIndex++;
+    } else {
+        currentIndex = 0;
+    }
+    showReview(currentIndex);
+});
+
+// Automatic scroll every 2.5 seconds
+setInterval(() => {
+    if (currentIndex < reviewItems.length - 1) {
+        currentIndex++;
+    } else {
+        currentIndex = 0;
+    }
+    showReview(currentIndex);
+}, 2500);
